@@ -23,6 +23,7 @@ namespace AtivSem01
                 var file = File.ReadAllText(arquivo);
                 var fileArray = file.Split('\n');
                 var controle = 0;
+                var paraSaberSeFoiEncontrado = fileArray.Length;
 
                 foreach (var item in fileArray)
                 {
@@ -30,12 +31,20 @@ namespace AtivSem01
                     {
                         fileArray[controle].Remove(0);
                         fileArray[controle] = novaLinha;
+                        paraSaberSeFoiEncontrado++;
                     }
                     fileArray[controle] = fileArray[controle] + "\n";
                     controle++;
+                    paraSaberSeFoiEncontrado--;
                 }
-
-                File.WriteAllLines(arquivo, fileArray);
+                if(paraSaberSeFoiEncontrado <= 0)
+                {
+                    File.WriteAllLines(arquivo, fileArray);
+                }
+                else
+                {
+                    Console.WriteLine("Nao foi encontrado nenhum registro");
+                }
             }
             else
             {
@@ -112,15 +121,20 @@ namespace AtivSem01
             {
                 var file = File.ReadAllText(arquivo);
                 var fileArray = file.Split('\n');
+                int controle = 0;
                 foreach(var item in fileArray)
                 {
                     var itemSeparado = item.Split(';');
                     if (itemSeparado.Contains(pesquisa))
                     {
                         Console.WriteLine(itemSeparado);
+                        controle++;
                     }
                 }
-
+                if(controle == 0)
+                {
+                    Console.WriteLine("Não foi encontrado nenhum registro");
+                }
             }
             else
             {
@@ -138,7 +152,7 @@ namespace AtivSem01
         public void Pesquisar(string nomeArquivo, string pesquisa);
     }
 
-    sealed class Clientes : Cadastros
+    public sealed class Clientes : Cadastros
     {
         public void Inserir()
         {
@@ -173,6 +187,8 @@ namespace AtivSem01
         }
         public override void Deletar(string nomeArquivo, string linha)
         {
+            base.Conexao = "Conectando a instancia local";
+            Console.WriteLine(base.Conexao);
             Console.WriteLine("lendo arquivo");
             Thread.Sleep(2000);
             Console.WriteLine("procurando por:   " + linha);
@@ -180,7 +196,7 @@ namespace AtivSem01
         }
     }
 
-    sealed class Pedidos : Cadastros
+    public sealed class Pedidos : Cadastros
     {
         public override void Inserir(string nomeArquivo, string linha)
         {
@@ -214,21 +230,23 @@ namespace AtivSem01
             Console.WriteLine(base.Conexao);
             Console.WriteLine("Digite o nome do cliente para pesquisar");
             var nome = Console.ReadLine();
-            base.Inserir("cliente", nome);
+            base.Inserir("pedido", nome);
         }
         public void Alterar(string linhaASerAlterada)
         {
             base.Conexao = "Conectando a instancia local";
             Console.WriteLine(base.Conexao);
             Console.WriteLine("Digite o  novo numero do pedido");
+            var numero = Console.ReadLine();
+            Console.WriteLine("Digite o novo nome do Cliente");
             var nome = Console.ReadLine();
-            Console.WriteLine("Digite o novo Endereço do Cliente");
-            var endereco = Console.ReadLine();
-            var linha = nome +";"+ endereco;
+            var linha = numero + ";"+ nome;
             base.Alterar("pedido", linhaASerAlterada, linha);
         }
         public override void Deletar(string nomeArquivo, string linha)
         {
+            base.Conexao = "Conectando a instancia local";
+            Console.WriteLine(base.Conexao);
             Console.WriteLine("lendo arquivo");
             Thread.Sleep(2000);
             Console.WriteLine("procurando por:   " + linha);
