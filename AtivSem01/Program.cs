@@ -278,7 +278,7 @@ namespace AtivSem01
                 }
                 else if (opcao == 4)
                 {
-                    Console.WriteLine("Informe o nome do cliente ou numero do pedido a ser Deletado");
+                    Console.WriteLine("Informe o nome do cliente a ser Deletado");
                     var nome = Console.ReadLine();
                     pedidos.Deletar("cliente", nome);
                     Console.WriteLine();
