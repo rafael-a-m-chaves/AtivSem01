@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AtivSem01
 {
     public abstract class Cadastros : IOperacoesBD
     {
-        protected string[] Conexao { get; set; }
+        protected string Conexao { get; set; }
 
         public void Alterar(string nomeArquivo, string linhaASerAlterada, string novaLinha)
         {
@@ -30,6 +31,7 @@ namespace AtivSem01
                         fileArray[controle].Remove(0);
                         fileArray[controle] = novaLinha;
                     }
+                    fileArray[controle] = fileArray[controle] + "\n";
                     controle++;
                 }
 
@@ -41,7 +43,7 @@ namespace AtivSem01
             }
         }
 
-        public void Deletar(string nomeArquivo, string linha)
+        public virtual void Deletar(string nomeArquivo, string linha)
         {
             string folder = Directory.GetCurrentDirectory();
             folder = Path.Combine(folder, "bancoDeDados");
@@ -59,6 +61,7 @@ namespace AtivSem01
                     {
                         fileArray[controle].Remove(0);
                     }
+                    fileArray[controle] = fileArray[controle] + "\n";
                     controle++;
                 }
 
@@ -70,7 +73,7 @@ namespace AtivSem01
             }
         }
 
-        public void Inserir(string nomeArquivo, string linha)
+        public virtual void Inserir(string nomeArquivo, string linha)
         {
 
             try
@@ -137,17 +140,102 @@ namespace AtivSem01
 
     sealed class Clientes : Cadastros
     {
-        //As Classes Clientes e Pedidos devem preencher a propriedade Conexão a partir de seus construtores
+        public void Inserir()
+        {
+            base.Conexao = "Conectando a instancia local";
+            Console.WriteLine(base.Conexao);
+            Console.WriteLine("Digite o nome do cliente");
+            var nome = Console.ReadLine();
+            Console.WriteLine("Digite o Endereço do Cliente");
+            var endereco = Console.ReadLine();
+            var linha = nome + ";"+ endereco;
+            base.Inserir("cliente", linha);
+        }
+
+        public void Pesquisar()
+        {
+            base.Conexao = "Conectando a instancia local";
+            Console.WriteLine(base.Conexao);
+            Console.WriteLine("Digite o nome do cliente para pesquisar");
+            var nome = Console.ReadLine();
+            base.Inserir("cliente", nome);
+        }
+        public void Alterar(string linhaASerAlterada)
+        {
+            base.Conexao = "Conectando a instancia local";
+            Console.WriteLine(base.Conexao);
+            Console.WriteLine("Digite o  novo nome do cliente");
+            var nome = Console.ReadLine();
+            Console.WriteLine("Digite o novo Endereço do Cliente");
+            var endereco = Console.ReadLine();
+            var linha = nome + ";"+ endereco;
+            base.Alterar("cliente", linhaASerAlterada, linha);
+        }
+        public override void Deletar(string nomeArquivo, string linha)
+        {
+            Console.WriteLine("lendo arquivo");
+            Thread.Sleep(2000);
+            Console.WriteLine("procurando por:   " + linha);
+            base.Deletar(nomeArquivo, linha);
+        }
     }
 
     sealed class Pedidos : Cadastros
     {
-        //As Classes Clientes e Pedidos devem preencher a propriedade Conexão a partir de seus construtores
+        public override void Inserir(string nomeArquivo, string linha)
+        {
+            try
+            {
+
+                string folder = Directory.GetCurrentDirectory();
+                folder = Path.Combine(folder, "bancoDeDados");
+                string arquivo = Path.Combine(folder, nomeArquivo);
+
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+
+                File.AppendAllText(arquivo, linha);
+            }
+            catch (UnauthorizedAccessException e)
+            {
+                Console.WriteLine("Atualmente esta aplicação não tem autorizaçao de acesso aos arquivos");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        public void Pesquisar()
+        {
+            base.Conexao = "Conectando a instancia local";
+            Console.WriteLine(base.Conexao);
+            Console.WriteLine("Digite o nome do cliente para pesquisar");
+            var nome = Console.ReadLine();
+            base.Inserir("cliente", nome);
+        }
+        public void Alterar(string linhaASerAlterada)
+        {
+            base.Conexao = "Conectando a instancia local";
+            Console.WriteLine(base.Conexao);
+            Console.WriteLine("Digite o  novo numero do pedido");
+            var nome = Console.ReadLine();
+            Console.WriteLine("Digite o novo Endereço do Cliente");
+            var endereco = Console.ReadLine();
+            var linha = nome +";"+ endereco;
+            base.Alterar("pedido", linhaASerAlterada, linha);
+        }
+        public override void Deletar(string nomeArquivo, string linha)
+        {
+            Console.WriteLine("lendo arquivo");
+            Thread.Sleep(2000);
+            Console.WriteLine("procurando por:   " + linha);
+            base.Deletar( nomeArquivo,  linha);
+        }
     }
 
-    //4.6) O método Deletar deve sofrer sobrecarga nas duas Classes, executando o código da Classe Superior e incluindo algo novo
-
-    //4.7) O método Inserir deve sofrer sobrecarga na classe Pedidos, desconsiderando a implementação do método da classe Superior
 }
 
 

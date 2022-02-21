@@ -39,23 +39,29 @@ namespace AtivSem01
             ShowWindow(ThisConsole, MAXIMIZE);
 
             //fim de seção         
+            ExibirMenu();
+            try
+            {
+                int opcao = Convert.ToInt32(Console.ReadLine());
+            }
+            catch
+            {
 
-            Console.WriteLine(Conexao.EscreverArquivoPedido("0001;Rafael;Timóteo\n"));
-            Console.WriteLine(Conexao.EscreverArquivoPedido("0001;Sara;Brasilha\n"));
-
-            string lido = Conexao.LerPedidos();
-
-            var separado = lido.Split('\n');
-
-            Console.WriteLine(separado[0]);
-
-            // var matrizResponse = ControleMatriz.GeraMatriz();
-
-            // var resultadoSomaMatriz = Funcoes.RecebeMatriz(matrizResponse.Matriz);
-
-            // Console.WriteLine(resultadoSomaMatriz);
+            }
+            
+            
 
             Console.ReadKey();
+            
+        }
+
+        static void ExibirMenu()
+        {
+            Console.Clear();
+            Console.WriteLine("Atividade Semana 01    " + DateTime.Now);
+
+            Console.WriteLine("Selecione uma opção de 1 a 4 ");
+            Console.WriteLine("1 Gerar Matriz | 2 Verificar qual o Maior Numero | 3 seção de cadastros | 4 Sair da aplicação");
         }
     }
 }
