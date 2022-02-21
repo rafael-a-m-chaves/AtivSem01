@@ -41,16 +41,22 @@ namespace AtivSem01
 
             //fim de seção         
             ExibirMenu();
+            
+            
+        }
+
+        static void LerOpcaoMenu()
+        {
             try
             {
                 int opcao = Convert.ToInt32(Console.ReadLine());
 
-                if(opcao == 1)
+                if (opcao == 1)
                 {
                     var retorno = ControleMatriz.GeraMatriz();
                     if (retorno.MatrizPreenchida)
                     {
-                        Console.WriteLine("soma da matriz é: "+Funcoes.RecebeMatriz(retorno.Matriz));
+                        Console.WriteLine("soma da matriz é: " + Funcoes.RecebeMatriz(retorno.Matriz));
                     }
                     else
                     {
@@ -58,19 +64,19 @@ namespace AtivSem01
                     }
                     Console.WriteLine();
                     Console.WriteLine();
-                    Console.WriteLine("Voltando ao menu principal em 15 segunos ......");
-                    Thread.Sleep(15000);
+                    Console.WriteLine("Voltando ao menu principal em 10 segundos ......");
+                    Thread.Sleep(10000);
                     ExibirMenu();
-                    
+
                 }
                 else if (opcao == 2)
                 {
-                    var retorno =  ControleListNumeros.RecebeValores();
+                    var retorno = ControleListNumeros.RecebeValores();
                     Console.WriteLine(Funcoes.RetornaMaiorValor(retorno));
                     Console.WriteLine();
                     Console.WriteLine();
-                    Console.WriteLine("Voltando ao menu principal em 15 segunos ......");
-                    Thread.Sleep(15000);
+                    Console.WriteLine("Voltando ao menu principal em 10 segundos ......");
+                    Thread.Sleep(10000);
                     ExibirMenu();
                 }
                 else if (opcao == 3)
@@ -79,11 +85,11 @@ namespace AtivSem01
 
                     Console.WriteLine();
                     Console.WriteLine();
-                    Console.WriteLine("Voltando ao menu principal em 15 segunos ......");
-                    Thread.Sleep(15000);
+                    Console.WriteLine("Voltando ao menu principal em 10 segundos ......");
+                    Thread.Sleep(10000);
                     ExibirMenu();
                 }
-                else if(opcao == 4)
+                else if (opcao == 4)
                 {
                     Console.WriteLine("Fechando o sistema em 5 segundos");
                     Thread.Sleep(5000);
@@ -98,7 +104,6 @@ namespace AtivSem01
             {
                 OpcaoNaoReconhecida();
             }
-            
         }
 
         static void ExibirMenu()
@@ -108,6 +113,7 @@ namespace AtivSem01
 
             Console.WriteLine("Selecione uma opção de 1 a 4 ");
             Console.WriteLine("1 Gerar Matriz | 2 Verificar qual o Maior Numero | 3 seção de cadastros | 4 Sair da aplicação");
+            LerOpcaoMenu();
         }
 
         static void OpcaoNaoReconhecida()
@@ -175,7 +181,7 @@ namespace AtivSem01
                     clientes.Inserir();
                     Console.WriteLine();
                     Console.WriteLine();
-                    Console.WriteLine("Voltando ao menu principal em 15 segunos ......");
+                    Console.WriteLine("Voltando ao menu principal em 10 segundos ......");
                     Thread.Sleep(15000);
                     ExibirMenu();
 
@@ -185,8 +191,8 @@ namespace AtivSem01
                     clientes.Pesquisar();
                     Console.WriteLine();
                     Console.WriteLine();
-                    Console.WriteLine("Voltando ao menu principal em 15 segunos ......");
-                    Thread.Sleep(15000);
+                    Console.WriteLine("Voltando ao menu principal em 10 segundos ......");
+                    Thread.Sleep(10000);
                     ExibirMenu();
                 }
                 else if (opcao == 3)
@@ -196,8 +202,8 @@ namespace AtivSem01
                     clientes.Alterar(nome);
                     Console.WriteLine();
                     Console.WriteLine();
-                    Console.WriteLine("Voltando ao menu principal em 15 segunos ......");
-                    Thread.Sleep(15000);
+                    Console.WriteLine("Voltando ao menu principal em 10 segundos ......");
+                    Thread.Sleep(10000);
                     ExibirMenu();
                 }
                 else if (opcao == 4)
@@ -207,8 +213,8 @@ namespace AtivSem01
                     clientes.Deletar("cliente",nome);
                     Console.WriteLine();
                     Console.WriteLine();
-                    Console.WriteLine("Voltando ao menu principal em 15 segunos ......");
-                    Thread.Sleep(15000);
+                    Console.WriteLine("Voltando ao menu principal em 10 segundos ......");
+                    Thread.Sleep(10000);
 
                 }
                 else
@@ -250,7 +256,7 @@ namespace AtivSem01
 
                     Console.WriteLine();
                     Console.WriteLine();
-                    Console.WriteLine("Voltando ao menu principal em 15 segunos ......");
+                    Console.WriteLine("Voltando ao menu principal em 10 segundos ......");
                     Thread.Sleep(15000);
                     ExibirMenu();
 
@@ -261,7 +267,7 @@ namespace AtivSem01
 
                     Console.WriteLine();
                     Console.WriteLine();
-                    Console.WriteLine("Voltando ao menu principal em 15 segunos ......");
+                    Console.WriteLine("Voltando ao menu principal em 10 segundos......");
                     Thread.Sleep(15000);
                     ExibirMenu();
                 }
@@ -272,7 +278,7 @@ namespace AtivSem01
                     pedidos.Alterar(nome);
                     Console.WriteLine();
                     Console.WriteLine();
-                    Console.WriteLine("Voltando ao menu principal em 15 segunos ......");
+                    Console.WriteLine("Voltando ao menu principal em 10 segundos ......");
                     Thread.Sleep(15000);
                     ExibirMenu();
                 }
@@ -283,7 +289,7 @@ namespace AtivSem01
                     pedidos.Deletar("cliente", nome);
                     Console.WriteLine();
                     Console.WriteLine();
-                    Console.WriteLine("Voltando ao menu principal em 15 segunos ......");
+                    Console.WriteLine("Voltando ao menu principal em 10 segundos ......");
                     Thread.Sleep(15000);
 
                 }
