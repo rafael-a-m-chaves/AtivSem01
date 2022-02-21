@@ -1,5 +1,7 @@
 ﻿using AtivSem01.Controles;
 using System;
+using System.IO;
+using System.Net;
 using System.Runtime.InteropServices;
 
 namespace AtivSem01
@@ -36,13 +38,22 @@ namespace AtivSem01
             Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
             ShowWindow(ThisConsole, MAXIMIZE);
 
-            //fim de seção 
+            //fim de seção         
 
-            var matrizResponse = ControleMatriz.GeraMatriz();
+            Console.WriteLine(Conexao.EscreverArquivoPedido("0001;Rafael;Timóteo\n"));
+            Console.WriteLine(Conexao.EscreverArquivoPedido("0001;Sara;Brasilha\n"));
 
-            var resultadoSomaMatriz = Funcoes.RecebeMatriz(matrizResponse.Matriz);
+            string lido = Conexao.LerPedidos();
 
-            Console.WriteLine(resultadoSomaMatriz);
+            var separado = lido.Split('\n');
+
+            Console.WriteLine(separado[0]);
+
+            // var matrizResponse = ControleMatriz.GeraMatriz();
+
+            // var resultadoSomaMatriz = Funcoes.RecebeMatriz(matrizResponse.Matriz);
+
+            // Console.WriteLine(resultadoSomaMatriz);
 
             Console.ReadKey();
         }
