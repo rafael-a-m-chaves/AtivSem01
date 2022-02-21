@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AtivSem01.Model
 {
-    class MatrizResponse
+    public class MatrizResponse
     {
         public int[,] Matriz { get; set; }
         public bool MatrizPreenchida { get; set; }
